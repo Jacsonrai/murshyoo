@@ -6,10 +6,10 @@ import {useState,useEffect} from 'react'
 import { BASE_URL } from "../utlis/endpoint";
 const NewArrival = ({navigation}) => {
   const [data, setdata] = useState("");
-  // console.log(data)
+ 
   const getNewArricalProduct = async () => {
     let data = await getCategory();
-    console.log(data[0]._id)
+    
     let categorid = data[0]._id;
     try {
       fetch(
@@ -86,13 +86,14 @@ const NewArrival = ({navigation}) => {
                             <Image
                               source={{ uri: `${item.productPicture}` }}
                               style={{
-                                resizeMode: "cover",
+                                
                                 width: null,
                                 height: null,
                                 flex: 1,
                                 borderTopLeftRadius: 5,
                                 borderTopRightRadius: 5,
                               }}
+                              resizeMode="cover"
                             />
                           </View>
                           <View

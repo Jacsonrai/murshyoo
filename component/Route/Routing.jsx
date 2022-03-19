@@ -1,11 +1,14 @@
 
 import WhiteListScreen from "../../screen/WhiteListScreen";
-import ProfileScreen from "../../screen/ProfileScreen";
 
+import { Foundation } from '@expo/vector-icons'
 import { ShippingRoute } from "./ShoppingNavigator/ShippingRoute";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { ProductRoute } from "./ProductNavigator/ProductNavigator";
+import { LogoutRouting } from "./LogoutRouting/LogoutRouting";
+import Models from "../../screen/Models";
+import { ModelRouting } from "./ModelRouting/ModelRouting";
 const Tab = createBottomTabNavigator();
 const Routing = () => {
   return (
@@ -42,7 +45,7 @@ const Routing = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={ProfileScreen}
+        component={LogoutRouting}
         options={{
           headerShown: false,
           tabBarLabel: "",
@@ -59,6 +62,17 @@ const Routing = () => {
           tabBarLabel: "",
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="heart" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Models"
+        component={ModelRouting}
+        options={{
+          headerShown: false,
+          tabBarLabel: "",
+          tabBarIcon: ({ color, size }) => (
+            <Foundation name="female-symbol" size={26} color={color} />
           ),
         }}
       />

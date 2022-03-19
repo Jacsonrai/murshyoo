@@ -12,17 +12,12 @@ const WhiteListCard= ({ item }) => {
           style={{
             width: width,
             height: 200,
-            borderTopLeftRadius: 10,
-            borderTopRightRadius: 10,
+           borderRadius:20
           }}
           resizeMode="cover"
         />
       </View>
-      <View style={styles.cardDetails}>
-        <Text style={styles.cardText}>Rs:{item.price}</Text>
-        <Entypo name="heart" size={24} color="#dc143c" />
-        <Ionicons name="add-circle" size={24} color="silver" />
-      </View>
+   
     </View>
   );
 };

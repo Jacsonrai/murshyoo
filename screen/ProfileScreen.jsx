@@ -9,13 +9,21 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import AppButton from "../component/Button/Button";
-const handleLogout=()=>{
-AsyncStorage.removeItem('token').then((result)=>{}).catch((err)=>{
-  console.log(err)
-})
-}
+import {useContext}from 'react'
+import AuthContext from "../component/Context/AuthContext";
+
 const width = Dimensions.get("screen").width / 3;
-const ProfileScreen = () => {
+const ProfileScreen = ({navigation}) => {
+  const{signout}=useContext(AuthContext)
+  const handleLogout=()=>{
+    signout()
+    AsyncStorage.removeItem('token').then((result)=>{}).catch((err)=>{
+      console.log(err)
+    
+    })
+    
+   
+    }
   return (
     <View style={styles.profileContainer}>
       <View style={styles.imageContainer}>
@@ -52,18 +60,16 @@ const ProfileScreen = () => {
           Account
         </Text>
         <View style={styles.accountContainer}>
+          
           <View style={styles.btnContainer}>
-            <AppButton title="Orders" />
+            <AppButton title="Wishlist" />
           </View>
           <View style={styles.btnContainer}>
-            <AppButton title="Whitelist" />
-          </View>
-          <View style={styles.btnContainer}>
-            <AppButton title="Address" />
+            <AppButton title="Address"/>
           </View>
         </View>
         <View style={styles.logoutContainer}>
-          <AppButton title="Logout" onPress={()=>handleLogout()}/>
+          <AppButton title="Logout" onPress={()=>handleLogout(navigation)}/>
         </View>
       </View>
     </View>

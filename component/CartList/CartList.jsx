@@ -6,97 +6,72 @@ import {
   Dimensions,
   Button,
 } from "react-native";
-import { Entypo } from "@expo/vector-icons";
+import { useEffect, useState } from "react";
+import { BASE_URL } from "../../utlis/endpoint";
 
 const width = Dimensions.get("screen").width / 1.5;
 
-
-
-const CartList = ({ item,navigation}) => {
+const CartList = ({ item, navigation }) => {
+  const { _id, price, product, quantity } = item;
+  const [productDetails, setProductDetails] = useState();
+  console.log(productDetails)
+  useEffect(() => {
+    try {
+      fetch(`${BASE_URL.api}/api/product/productdetails?id=${product}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((responseJson) => {
+          setProductDetails(responseJson.data?.productPicture)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  }, [product]);
 
   return (
     <View style={styles.mainContainer}>
-      
-      
-            <View style={styles.detailsContainer} key={item.id}>
-            <View style={styles.imageContainer}>
-              <Image
-                style={styles.image}
-                source={item.img}
-                resizeMode="cover"
-              />
-            </View>
-            <View style={styles.detailsTextContainer}>
-              <Text style={styles.priceText}>Rs:{item.price}</Text>
-            <View style={styles.valueContainer}>
-              <Button title="-"/>
-              <Text style={{padding:8,fontSize:15,backgroundColor:"white",fontWeight:"bold"}}>0</Text>
-              <Button title="+"/>
-  
-            </View>
-              <Entypo name="heart" size={24} color="#fff8dc" />
-            </View>
-            <View style={styles.paymentContainer}>
-              <Text style={styles.title}>Payment via khalti</Text>
-              <Text style={styles.itemText}>Total:{item.price}</Text>
-              <Text style={styles.itemText}>Discount:{item.discount}</Text>
-              <Text style={styles.itemText}>Delivery Charge:Free</Text>
-              <Button title="place order" color="#007AFF" onPress={()=>navigation.navigate("nestedScreen")}/>
-            </View>
-          </View>
-      
-      
+      <View>
+        <Image
+          source={{uri:`${productDetails}`,height:80,width:100}}
+          style={{borderRadius:10}}
+          resizeMode="contain"
+       
+        />
       </View>
- 
+   
+        <View style={{alignItems:"center"}}>
+          <Text>Quantity</Text>
+          <Text style={{ fontSize: 20 }}>{quantity}</Text>
+        </View>
+
+        <View style={{alignItems:"center",marginHorizontal:40}}>
+          <Text>Price</Text>
+          <Text style={{ fontSize: 20 }}>Rs {price}</Text>
+        </View>
+    
+    </View>
   );
 };
 const styles = StyleSheet.create({
   mainContainer: {
-    marginTop:2,
-    marginBottom:15,
+    marginTop: 10,
+    height: 100,
+    borderBottomWidth: 1,
+    borderBottomColor: "white",
+    
+    padding:10,
+    flexDirection:"row",
+    alignItems:"center",
+    justifyContent:"space-between",
    
-    alignItems: "center",
   },
-  valueContainer: {
-    flexDirection: "row",
-    height: "auto",
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "black",
-  },
-  itemText: {
-    padding: 5,
-    fontSize: 15,
-    fontWeight: "600",
-  },
-  paymentContainer: {
-    backgroundColor: "silver",
-    padding: 5,
-  },
-  priceText: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  detailsTextContainer: {
-    backgroundColor: "gray",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 10,
-    alignItems: "center",
-  },
-  detailsContainer: {
-    marginTop: 20,
-  },
-  imageContainer: {},
-  image: {
-    width: width,
-    height: 150,
-    borderTopRightRadius: 10,
-    borderTopLeftRadius: 10,
-  },
- 
 });
 
 export default CartList;

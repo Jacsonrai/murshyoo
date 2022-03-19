@@ -15,14 +15,14 @@ import { useEffect, useState } from "react";
 import HomeList from "../component/HomeList/HomeList";
 import { BASE_URL } from "../utlis/endpoint";
 const ProductDetails = ({ route, navigation }) => {
-  console.log(route.params);
+ 
   const { _id, name, productPicture, price, quantity } = route.params;
   const [active, setActive] = useState(0);
   const [count, setCount] = useState(1);
   const [changePrice, setChangePrice] = useState(price);
   const[message,setMessage]=useState('')
   const[token,setToke]=useState()
-  console.log(token)
+ 
 useEffect(()=>{
 AsyncStorage.getItem('token').then((result)=>{
   if(result!==null){
@@ -48,13 +48,13 @@ const handleSubmit=async()=>{
   let product=_id
   let quantity=count
   let price=changePrice
-  console.log(changePrice)
+  
  try{
   fetch(`${BASE_URL.api}/api/user/cart/addtocart`,{
     method:"POST",
     
     headers:{
-      'Authorization':`Bearer ${token}`,
+      Authorization:`Bearer ${token}`,
        'Content-Type':'application/json'
        
     },
@@ -83,14 +83,7 @@ const handleSubmit=async()=>{
    console.log(err)
  }
 }
-// fetch('URL_GOES_HERE', { 
-//   method: 'post', 
-//   headers: new Headers({
-//       'Authorization': 'Basic '+btoa('username:password'), 
-//       'Content-Type': 'application/x-www-form-urlencoded'
-//   }), 
-//   body: 'A=1&B=2'
-// });
+
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -100,10 +93,11 @@ const handleSubmit=async()=>{
           <Image
             source={{ uri: productPicture, width: 150, height: 200 }}
             style={{
-              resizeMode: "cover",
+             
               borderRadius: 10,
               
             }}
+            resizeMode="cover"
           />
         </View>
         <View

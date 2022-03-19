@@ -7,65 +7,27 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AuthContext from "../../component/Context/AuthContext";
+import{useContext}from 'react'
+
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState } from "react";
-import { BASE_URL } from "../../utlis/endpoint";
+
 
 const width = Dimensions.get("screen").width / 2;
 const height = Dimensions.get("screen").height / 7;
 
 const LoginScreen = ({ navigation }) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const{signin}=useContext(AuthContext)
+  
+
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  console.log(BASE_URL.api)
+  
 
-  const handleLogin = async () => {
-    setIsLoading(true);
-    let data = {
-      method: "POST",
-      credentials: "same-origin",
-      mode: "same-origin",
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    };
-    try {
-      fetch(`${BASE_URL.api}/api/signin`, data)
-        .then((response) => response.json())
-        .then((responseJson) => {
-          if (responseJson.error) {
-            alert(responseJson.error);
-          }
-          if (responseJson.message) {
-            alert(responseJson.message);
-          }
-          if (responseJson.user) {
-            console.log(responseJson.token);
-            AsyncStorage.setItem("token", JSON.stringify(responseJson.token))
-              .then((result) => {
-                console.log(result)
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-            navigation.navigate("dashboard");
-          }
-          setIsLoading(false);
-        })
-        .catch((error) => {
-          console.log(error);
-          setIsLoading(false);
-        });
-    } catch (err) {
-      console.log("error", error);
-    }
+  const handleLogin =() => {
+    
+    signin(email,password)
   };
   return (
     <SafeAreaView style={{ backgroundColor: "pink", flex: 1 }}>
