@@ -19,6 +19,13 @@ const AuthState=({children})=>{
             }
         )
     }
+    const noPrevToken=()=>{
+      dispatch(
+          {
+              type:"NOPREVTOKEN"
+          }
+      )
+  }
     const signin=(email,password)=>{
         let data = {
             method: "POST",
@@ -75,7 +82,7 @@ const AuthState=({children})=>{
         })
     }
     return  <AuthContext.Provider value={{
-        ...state,signin,signout,prevToken
+        ...state,signin,signout,prevToken,noPrevToken
     }}>{children}</AuthContext.Provider>
 
 }

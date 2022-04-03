@@ -10,7 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import AuthContext from "../Context/AuthContext";
 
 const MainRouting=()=>{
-    const{isAuth,prevToken}=useContext(AuthContext)
+    const{isAuth,prevToken,noPrevToken}=useContext(AuthContext)
     
     const [loading, setLoading] = useState(false);
     const[auth,setAuth]=useState(null)
@@ -20,7 +20,7 @@ const MainRouting=()=>{
       if(result!==null){
         prevToken()
       }else{
-        setAuth(null)
+        noPrevToken()
       }
     })
     setLoading(true);

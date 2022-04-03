@@ -8,6 +8,8 @@ const Reducer=(state,action)=>{
             return{...state,isAuth:false,token:null}
         case "PREVTOKEN":
             return{...state,isAuth:true}
+        case "NOPREVTOKEN":
+            return{...state,isAuth:false}
 
         default:
             return state

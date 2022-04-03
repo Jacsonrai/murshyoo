@@ -49,7 +49,7 @@ const CartScreen = ({ navigation }) => {
     }
 },[token,carts])
 const handlePress=()=>{
-setCarts([])
+
   navigation.navigate("nestedScreen",carts)
 }
 

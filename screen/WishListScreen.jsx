@@ -3,7 +3,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import WhiteListCard from "../component/WhiteListCard/WhiteListCard";
 import { whiteListData } from "../Const/DummyData";
 
-const WhiteListScreen = () => {
+const WishListScreen = () => {
   return (
     <SafeAreaView style={{ backgroundColor: "pink", flex: 1 }}>
       <Text
@@ -35,4 +35,4 @@ const WhiteListScreen = () => {
     </SafeAreaView>
   );
 };
-export default WhiteListScreen;
+export default WishListScreen;
