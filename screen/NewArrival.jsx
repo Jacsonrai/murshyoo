@@ -4,6 +4,7 @@ import { Entypo } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import {useState,useEffect} from 'react'
 import { BASE_URL } from "../utlis/endpoint";
+import { newArrival } from "../Const/DummyData";
 const NewArrival = ({navigation}) => {
   const [data, setdata] = useState("");
  
@@ -41,7 +42,7 @@ const NewArrival = ({navigation}) => {
     getNewArricalProduct();
     
   }, []);
-
+console.log(data)
 
 
  
@@ -86,8 +87,7 @@ const NewArrival = ({navigation}) => {
                             <Image
                               source={{ uri: `${item.productPicture}` }}
                               style={{
-                                
-                                width: null,
+                                 width: null,
                                 height: null,
                                 flex: 1,
                                 borderTopLeftRadius: 5,

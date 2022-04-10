@@ -19,8 +19,9 @@ import ImageUpload from "../component/ImageUpload/ImageUpload";
 
 const CheckOut = ({ route, navigation }) => {
  
-
+console.log(BASE_URL)
   const payload = route.params;
+  console.log(route.params)
   const [image, setImage] = useState(null);
   const [names, setName] = useState("");
   const [addresss, setAddress] = useState("");

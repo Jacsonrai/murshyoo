@@ -10,8 +10,9 @@ import {
 import { Alert } from "react-native-web";
 
 const ModelsDetails = ({ route, navigation }) => {
-  console.log(route.params);
-  const { img, name, desc, email } = route.params;
+  console.log('params',route.params);
+  
+  const { img, name, description, email,modelPicture } = route.params;
   const openUrl=async(url)=>{
       const isSupported=await Linking.canOpenURL(url);
       if(isSupported){
@@ -25,7 +26,7 @@ const ModelsDetails = ({ route, navigation }) => {
   return (
     <View style={{ flex: 1 }}>
       <StatusBar translucent backgroundColor="rgba(0,0,0,0)" />
-      <ImageBackground style={{ flex: 1 }} source={img}>
+      <ImageBackground style={{ flex: 1 }} source={{uri:`${modelPicture}`}}>
         <View
           style={{
             height: "50%",
@@ -50,7 +51,7 @@ const ModelsDetails = ({ route, navigation }) => {
               marginTop: 6,
             }}
           >
-            {desc}
+            {description}
           </Text>
           <Text style={{ color: "#F2A9BE",letterSpacing:2, fontWeight: "bold", marginTop: 5 }}>
             {email}

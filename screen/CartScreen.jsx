@@ -40,6 +40,7 @@ const CartScreen = ({ navigation }) => {
         }
       }).then((response)=>response.json()).then((responseJson)=>{
        setCarts(responseJson.cart.cartItems)
+      
       }).catch((err)=>{
         console.log(err)
       })

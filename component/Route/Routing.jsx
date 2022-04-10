@@ -1,5 +1,5 @@
 
-import WhiteListScreen from "../../screen/WhiteListScreen";
+
 
 import { Foundation } from '@expo/vector-icons'
 import { ShippingRoute } from "./ShoppingNavigator/ShippingRoute";
@@ -9,6 +9,7 @@ import { ProductRoute } from "./ProductNavigator/ProductNavigator";
 import { LogoutRouting } from "./LogoutRouting/LogoutRouting";
 import Models from "../../screen/Models";
 import { ModelRouting } from "./ModelRouting/ModelRouting";
+import WishListScreen from '../../screen/WishListScreen';
 const Tab = createBottomTabNavigator();
 const Routing = () => {
   return (
@@ -56,7 +57,7 @@ const Routing = () => {
       />
       <Tab.Screen
         name="WhiteList"
-        component={WhiteListScreen}
+        component={WishListScreen}
         options={{
           headerShown: false,
           tabBarLabel: "",

@@ -4,10 +4,36 @@ import React from 'react'
 import { TouchableOpacity,View, Image, Dimensions,FlatList, Text } from "react-native";
 
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useEffect,useState } from 'react';
 const width=Dimensions.get("screen").width/2-30
-import { modelsData } from '../Const/DummyData';
+
+import { BASE_URL } from '../utlis/endpoint';
+
 const Models=({navigation})=>{
     console.log(navigation)
+    const[model,setModel]=useState()
+   console.log(model)
+    useEffect(()=>{
+      const getModel=async()=>{
+        try{
+          fetch(`${BASE_URL.api}/api/model/getmodel`,{
+            method:"GET",
+            headers:{
+              'Content-Type':'application/json'
+            }
+          }).then((response)=>
+          response.json()
+          ).then((responseJson)=>{
+            setModel(responseJson.model)
+          })
+
+        }
+        catch(err){
+          console.log(err)
+        }
+      }
+    getModel()
+    },[model])
     return(
         <SafeAreaView style={{ backgroundColor: "pink", flex: 1 }}>
         <Text
@@ -36,19 +62,18 @@ const Models=({navigation})=>{
           scrollEventThrottle={16}
           legacyImplementation={false}
           keyExtractor={(item, index) => {
-            return item.id;
+            return item._id;
           }}
           numColumns={2}
-          data={ modelsData }
+          data={ model }
           renderItem={({ item }) =>(
+            
             <View style={{padding:10}}  key={item.id}>
             <TouchableOpacity onPress={()=>navigation.navigate("nestedScreen",item)}>
-            <View>
+            <View style={{flex:2}}>
             <Image
-              source={item.img}
+              source={{uri:`${item?.modelPicture}`,width:width, height: 200}}
               style={{
-                width: width,
-                height: 200,
                 borderTopLeftRadius: 10,
                 borderTopRightRadius: 10,
                 borderBottomLeftRadius: 10,
@@ -56,6 +81,7 @@ const Models=({navigation})=>{
               }}
               resizeMode="cover"
             />
+            
           </View>
     
             </TouchableOpacity>

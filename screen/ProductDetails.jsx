@@ -22,6 +22,7 @@ const ProductDetails = ({ route, navigation }) => {
   const [changePrice, setChangePrice] = useState(price);
   const[message,setMessage]=useState('')
   const[token,setToke]=useState()
+  const[wishList,setWishList]=useState(false)
  
 useEffect(()=>{
 AsyncStorage.getItem('token').then((result)=>{
@@ -83,6 +84,45 @@ const handleSubmit=async()=>{
    console.log(err)
  }
 }
+const handleWishList=()=>{
+  
+  
+ try{
+  fetch(`${BASE_URL.api}/api/wish/addwish`,{
+    method:"POST",
+    
+    headers:{
+      Authorization:`Bearer ${token}`,
+       'Content-Type':'application/json'
+       
+    },
+    body:JSON.stringify({
+     wishItems:{
+        product:_id,
+        name:name,
+        price:price
+      }
+     
+    })
+  }).then((response)=>response.text())
+  .then((responseJson)=>{
+   console.log('reas',responseJson)
+
+  
+    alert('item added to wish list')
+    setWishList(true)
+    
+
+    
+    
+  }).catch((err)=>{
+    console.log(err)
+  })
+  
+ }catch(err){
+   console.log(err)
+ }
+}
 
 
   return (
@@ -130,7 +170,8 @@ const handleSubmit=async()=>{
                 borderRadius: 50,
               }}
             >
-              <AntDesign name="hearto" size={24} color="white" />
+              {wishList? <AntDesign name="hearto" size={24} color="red" onPress={()=>handleWishList()} />: <AntDesign name="hearto" size={24} color="white" onPress={()=>handleWishList()} />}
+             
             </View>
           </View>
 

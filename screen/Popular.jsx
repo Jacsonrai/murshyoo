@@ -40,6 +40,7 @@ const Popular = ({navigation}) => {
     getPopularProduct();
     
   }, []);
+  console.log(popular)
 
 
 
