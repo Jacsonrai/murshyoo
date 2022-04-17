@@ -5,6 +5,10 @@ import {
   TextInput,
   ScrollView,
   StatusBar,
+  FlatList,
+  TouchableOpacity,
+  Image,
+  ActivityIndicator
 } from "react-native";
 
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -12,8 +16,29 @@ import { AntDesign } from "@expo/vector-icons";
 import NewArrival from "./NewArrival";
 import Popular from "./Popular";
 import Recommended from "./Recommended";
+import {useState, useEffect } from 'react'
+import { BASE_URL } from "../utlis/endpoint";
+
 
 const HomeScreen = ({navigation}) => {
+  const[textInputValue,setTextInputValue]=useState('')
+  const[searchData,setSearchData]=useState({})
+  console.log('text',textInputValue)
+  console.log('search',searchData)
+ useEffect(()=>{
+  const getCategory = async () => {
+    try {
+      let response = await fetch(
+        `${BASE_URL.api}/api/product/search?name=${textInputValue}`
+      );
+      let json = await response.json();
+     setSearchData(json)
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  getCategory()
+ },[textInputValue])
   return (
     <SafeAreaView style={{ backgroundColor: "pink", flex: 1 }}>
       <StatusBar backgroundColor="pink" />
@@ -32,6 +57,117 @@ const HomeScreen = ({navigation}) => {
       >
         MURSHYOO
       </Text>
+      {
+      searchData?.data?.length>0?<>
+       <ScrollView scrollEventThrottle={16}>
+        <View style={styles.homeContainer}>
+          <View style={styles.searchContainer}>
+            <AntDesign
+              name="search1"
+              size={24}
+              color="gray"
+              style={{
+                borderBottomLeftRadius: 10,
+                borderTopLeftRadius: 10,
+                marginLeft: 10,
+                backgroundColor: "white",
+                justifyContent: "center",
+                padding: 2,
+
+                elevation: 2,
+                shadowColor: "#52006A",
+              }}
+            />
+            <TextInput 
+            placeholder="search" 
+            style={styles.searchText} 
+            onChangeText={text=>setTextInputValue(text)}
+            />
+          </View>
+
+          <View style={{ height: 140, marginTop: 10 }}>
+                <ScrollView
+                  // horizontal={true}
+                  showsHorizontalScrollIndicator={false}
+                >
+                  {searchData?.data?.length < 1 ? (
+                    <ActivityIndicator size={"large"} color={"#2FBBF0"} />
+                  ) : (
+                   
+                      <FlatList
+                      horizontal
+                      showsHorizontalScrollIndicator={false}
+                      data={searchData?.data}
+                      keyExtractor={(item, index) => {
+                        return item._id;
+                      }}
+                      renderItem={({ item, index }) => (
+                    
+                        <TouchableOpacity onPress={()=>navigation.navigate("nestedScreen",item)}>
+                        
+                        <View
+                          style={{
+                            height: 140,
+                            width: 180,
+                            marginLeft: 10,
+                            marginRight: 10,
+                            elevation: 1,
+                            shadowColor: "#520023",
+                            borderWidth: 0.1,
+                          }}
+                          key={item._id}
+                        >
+                          <View style={{ flex: 2 }}>
+                            <Image
+                              source={{ uri: `${item.productPicture}` }}
+                              style={{
+                                 width: null,
+                                height: null,
+                                flex: 1,
+                                borderTopLeftRadius: 5,
+                                borderTopRightRadius: 5,
+                              }}
+                              resizeMode="cover"
+                            />
+                          </View>
+                          <View
+                            style={{
+                              flex: 1,
+                              flexDirection: "row",
+                              justifyContent:"space-around",
+                              backgroundColor: "#F2A9BE",
+                              paddingTop: 1,
+                              
+                              alignItems: "center",
+                              paddingHorizontal: 4,
+                            }}
+                          >
+                            <Text style={{ color: "white", fontWeight: "700" }}>
+                              {item.name}
+                            </Text>
+                            <Text style={{ color: "white", fontWeight: "700" }}>
+                              Rs.{item.price}
+                            </Text>
+                           
+                          </View>
+                        </View>
+                        </TouchableOpacity>
+                      )}
+                    />
+                      
+                    
+                  )}
+                </ScrollView>
+              </View>
+   
+         
+
+          
+         
+        </View>
+      </ScrollView>
+      
+      </>:<>
       <ScrollView scrollEventThrottle={16}>
         <View style={styles.homeContainer}>
           <View style={styles.searchContainer}>
@@ -51,9 +187,12 @@ const HomeScreen = ({navigation}) => {
                 shadowColor: "#52006A",
               }}
             />
-            <TextInput placeholder="search" style={styles.searchText} />
+            <TextInput 
+            placeholder="search" 
+            style={styles.searchText} 
+            onChangeText={text=>setTextInputValue(text)}
+            />
           </View>
-
           <ScrollView scrollEventThrottle={16}>
             <View style={{ flex: 1, paddingTop: 20 }}>
               <Text
@@ -106,6 +245,9 @@ const HomeScreen = ({navigation}) => {
           <Recommended navigation={navigation} />
         </View>
       </ScrollView>
+      </>
+      }
+     
     </SafeAreaView>
   );
 };
