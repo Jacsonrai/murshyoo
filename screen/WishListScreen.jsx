@@ -2,7 +2,7 @@ import { FlatList, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useEffect,useState } from "react";
 import WhiteListCard from "../component/WhiteListCard/WhiteListCard";
-import { whiteListData } from "../Const/DummyData";
+
 import { BASE_URL } from "../utlis/endpoint";
 import AsyncStorage from '@react-native-async-storage/async-storage'
 const WishListScreen = () => {

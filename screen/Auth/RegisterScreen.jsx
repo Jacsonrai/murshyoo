@@ -12,6 +12,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { useState} from "react";
+import {BASE_URL} from '../../utlis/endpoint'
 
 const width = Dimensions.get("screen").width / 2;
 const height = Dimensions.get("screen").height / 7;
@@ -54,7 +55,7 @@ const RegisterScreen = ({ navigation }) => {
         }
       }
       try{
-        fetch("http://192.168.10.65:8000/api/signup",data).then((response) => response.json())
+        fetch(`${BASE_URL.api}/api/signup`,data).then((response) => response.json())
         .then((responseJson) => {
           if(responseJson.error){
             alert(responseJson.error)
