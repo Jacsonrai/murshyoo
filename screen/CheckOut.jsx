@@ -42,11 +42,12 @@ console.log(BASE_URL)
     let address = addresss;
     let contact = contacts;
     const formData = new FormData();
-    formData.append("studentPicture", {
+    image&&( formData.append("studentPicture", {
       name: "_studentPicture",
       uri: image,
       type: "image/*",
-    });
+    }))
+   
     formData.append("name",name)
     formData.append("address",address)
     formData.append("contact",contact)
