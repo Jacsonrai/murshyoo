@@ -14,6 +14,7 @@ const ImageUpload = ({ onPress, data }) => {
             height: 150,
             justifyContent: "center",
             alignItems: "center",
+            marginTop:10
           }}
           onPress={onPress}
         >

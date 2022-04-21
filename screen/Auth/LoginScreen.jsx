@@ -14,7 +14,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useState } from "react";
 
 
-const width = Dimensions.get("screen").width / 2;
+const width = Dimensions.get("screen").width / 1.5;
 const height = Dimensions.get("screen").height / 7;
 
 const LoginScreen = ({ navigation }) => {
@@ -73,7 +73,7 @@ const LoginScreen = ({ navigation }) => {
             />
             <TouchableOpacity
               style={{
-                backgroundColor: "gray",
+                backgroundColor: "pink",
                 width: 100,
                 alignItems: "center",
                 borderRadius: 5,
@@ -86,7 +86,7 @@ const LoginScreen = ({ navigation }) => {
                   color: "white",
                   padding: 10,
                   fontWeight: "bold",
-                  fontSize: 15,
+                  fontSize: 25,
                 }}
               >
                 Login
@@ -96,12 +96,12 @@ const LoginScreen = ({ navigation }) => {
               style={{ padding: 10 }}
               onPress={() => navigation.navigate("sign")}
             >
-              <Text style={{ color: "blue", fontWeight: "bold", fontSize: 16 }}>
+              <Text style={{ color: "pink", fontWeight: "bold", fontSize: 21 }}>
                 Create Account?
               </Text>
             </TouchableOpacity>
             <TouchableOpacity style={{ padding: 10 }}>
-              <Text style={{ color: "blue", fontWeight: "bold", fontSize: 16 }}>
+              <Text style={{ color: "pink", fontWeight: "bold", fontSize: 21 }}>
                 Forget Password?
               </Text>
             </TouchableOpacity>
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   inputText: {
-    fontSize: 22,
+    fontSize: 30,
     color: "gray",
     paddingLeft: 5,
     borderWidth: 1,
@@ -126,6 +126,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     width: width,
     borderRadius: 5,
+    marginTop:10
   },
   imageContainer: {
     justifyContent: "center",

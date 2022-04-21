@@ -52,6 +52,10 @@ const AuthState=({children})=>{
                 }
                 if (responseJson.user) {
                   console.log(responseJson.token);
+                  dispatch({
+                    type:"LOGIN",
+                    payload:responseJson.token
+                })
                   AsyncStorage.setItem("token", JSON.stringify(responseJson.token))
                     .then((result) => {
                       console.log(result)
@@ -61,10 +65,7 @@ const AuthState=({children})=>{
                     });
                  
                 }
-                dispatch({
-                    type:"LOGIN",
-                    payload:responseJson.token
-                })
+               
              
 
               })

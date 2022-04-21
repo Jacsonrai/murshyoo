@@ -167,7 +167,7 @@ const RegisterScreen = ({ navigation }) => {
             </TouchableOpacity>
             
             <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Text style={{ fontWeight: "bold", fontSize: 16, color: "gray" }}>
+              <Text style={{ fontWeight: "bold", fontSize: 16, color: "pink" }}>
                 Already have Account?
               </Text>
               <TouchableOpacity
@@ -175,7 +175,7 @@ const RegisterScreen = ({ navigation }) => {
                 onPress={() => navigation.navigate("login")}
               >
                 <Text
-                  style={{ color: "blue", fontWeight: "bold", fontSize: 16 }}
+                  style={{ color: "pink", fontWeight: "bold", fontSize: 16 }}
                 >
                   Login
                 </Text>

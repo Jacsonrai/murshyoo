@@ -151,6 +151,7 @@ const styles = StyleSheet.create({
     width: "100%",
     marginBottom: 10,
     borderRadius: 5,
+    marginTop:10
   },
   mainFormContainer: {
     padding: 10,
