@@ -266,7 +266,7 @@ const styles = StyleSheet.create({
     shadowColor: "#52006A",
   },
   searchText: {
-    fontSize: 20,
+    fontSize: 22,
     color: "gray",
     textAlign: "center",
     backgroundColor: "white",

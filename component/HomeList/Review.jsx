@@ -4,7 +4,7 @@ const Review=({review})=>{
     return(
     <View style={{marginTop:30}}>
        
-        <StarRating/>
+        <StarRating review={review}/>
 
     </View>)
 }

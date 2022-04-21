@@ -6,7 +6,11 @@ import {useState,useEffect} from 'react'
 import { BASE_URL } from "../utlis/endpoint";
 const Recommended = ({navigation}) => {
   const [recommended,setRecommended] = useState("");
- 
+  const[productRecommended,setProductRecommended]=useState()
+
+console.log(productRecommended?.product)
+
+
   const getRecommendedProduct = async () => {
     let data = await getCategory();
     
@@ -40,7 +44,25 @@ const Recommended = ({navigation}) => {
     getCategory()
     getRecommendedProduct();
     
-  }, []);
+  }, [productRecommended]);
+
+  useEffect(()=>{
+    const getProduct=async()=>{
+      try {
+        fetch(
+          `${BASE_URL.api}/api/product/getproduct`
+        )
+          .then((response) => response.json())
+          .then((responseJson) => {
+            setProductRecommended(responseJson)
+          });
+      } catch (err) {
+        console.log(err);
+      }
+
+    }
+    getProduct()
+  },[productRecommended])
 
 
 
@@ -55,17 +77,19 @@ const Recommended = ({navigation}) => {
                   // horizontal={true}
                   showsHorizontalScrollIndicator={false}
                 >
-                  {recommended.length < 1 ? (
+                
+                  {productRecommended?.product?.length < 1 ? (
                     <ActivityIndicator size={"large"} color={"#2FBBF0"} />
                   ) : (
                     <FlatList
                       horizontal
                       showsHorizontalScrollIndicator={false}
-                      data={recommended}
+                      data={productRecommended?.product}
                       keyExtractor={(item, index) => {
                         return item._id;
                       }}
                       renderItem={({ item, index }) => (
+                       item?.review>3&&(
                         <TouchableOpacity onPress={()=>navigation.navigate("nestedScreen",item)}>
                         <View
                           style={{
@@ -113,6 +137,8 @@ const Recommended = ({navigation}) => {
                           </View>
                         </View>
                         </TouchableOpacity>
+                       )
+                       
                       )}
                     />
                   )}

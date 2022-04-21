@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
   },
   inputText: {
-    fontSize: 20,
+    fontSize: 25,
     color: "gray",
     paddingLeft: 10,
     backgroundColor: "white",

@@ -2,7 +2,7 @@
 // https://aboutreact.com/react-native-custom-star-rating-bar/
 
 // import React in our code
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 
 // import all the components we are going to use
 import {
@@ -14,9 +14,15 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-const StarRating = () => {
+import { BASE_URL } from '../../utlis/endpoint';
+
+const StarRating = ({review}) => {
+  
   // To set the default Star Selected
-  const [defaultRating, setDefaultRating] = useState(2);
+  const [defaultRating, setDefaultRating] = useState('');
+  const[product,setProduct]=useState('')
+
+  console.log('hello',product?.data?.review)
   // To set the max number of Stars
   const [maxRating, setMaxRating] = useState([1, 2, 3, 4, 5]);
 
@@ -26,6 +32,45 @@ const StarRating = () => {
   // Empty Star. You can also give the path from local
   const starImageCorner =
     'https://raw.githubusercontent.com/AboutReact/sampleresource/master/star_corner.png';
+
+
+    useEffect(()=>{
+      setDefaultRating(product?.data?.review)
+      
+    },[product])
+useEffect(()=>{
+  const setRating=async()=>{
+    try {
+     await fetch(`${BASE_URL.api}/api/product/productrating?id=${review}&rating=${defaultRating}`,{
+       method:"POST",
+       headers:{
+         'Content-Type': 'application/json'
+        }
+     })
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  setRating()
+ 
+})
+useEffect(()=>{
+  const getProduct=async()=>{
+    try {
+      await fetch(
+        `${BASE_URL.api}/api/product/productdetails?id=${review}`
+      )
+        .then((response) => response.json())
+        .then((responseJson) => {
+          setProduct(responseJson)
+        });
+    } catch (err) {
+      console.log(err);
+    }
+
+  }
+  getProduct()
+},[])
 
   const CustomRatingBar = () => {
     return (
@@ -62,16 +107,14 @@ const StarRating = () => {
         <CustomRatingBar />
         <Text >
           {/* To show the rating selected */}
-          {defaultRating} / {Math.max.apply(null, maxRating)}
+          {defaultRating}
+          {/* {defaultRating} /{Math.max.apply(null, maxRating)} */}
         </Text>
         <TouchableOpacity
           activeOpacity={0.7}
           style={styles.buttonStyle}
           onPress={() => alert(defaultRating)}>
-          {/* Clicking on button will show the rating as an alert */}
-          {/* <Text style={styles.buttonTextStyle}>
-            Get Selected Value
-          </Text> */}
+         
         </TouchableOpacity>
       </View>
     </SafeAreaView>

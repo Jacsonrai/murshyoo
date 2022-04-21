@@ -98,12 +98,21 @@ const ProductDetails = ({ route, navigation }) => {
           },
         }),
       })
-        .then((response) => response.text())
+        .then((response) => response.json())
         .then((responseJson) => {
-          console.log("reas", responseJson);
+          console.log("reas", responseJson.message);
+          if( responseJson.message===true){
+            alert("item added to wish list");
+            setWishList(true)
+          }
+          else if(responseJson.message===false){
+            alert("item remove from wish list");
+            setWishList(false);
+          }
+         
 
-          alert("item added to wish list");
-          setWishList(true);
+         
+          
         })
         .catch((err) => {
           console.log(err);
@@ -232,7 +241,7 @@ const ProductDetails = ({ route, navigation }) => {
               name={name}
               price={price}
               quantity={quantity}
-              review={""}
+              review={_id}
             />
           </View>
           <View
